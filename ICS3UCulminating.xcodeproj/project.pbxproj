@@ -15,6 +15,7 @@
 		87C868882FCDE0440040D388 /* HouseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868872FCDE0440040D388 /* HouseItemView.swift */; };
 		87C8688A2FCDE0440040D388 /* RELEASE.md in Resources */ = {isa = PBXBuildFile; fileRef = 87C868892FCDE0440040D388 /* RELEASE.md */; };
 		87C8688F2FCDE73A0040D388 /* Maze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8688E2FCDE73A0040D388 /* Maze.swift */; };
+		87C868922FCF5A880040D388 /* MazeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868912FCF5A880040D388 /* MazeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		87C868892FCDE0440040D388 /* RELEASE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RELEASE.md; sourceTree = "<group>"; };
 		87C8688E2FCDE73A0040D388 /* Maze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maze.swift; sourceTree = "<group>"; };
 		87C868902FCF56560040D388 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		87C868912FCF5A880040D388 /* MazeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				87C868822FCDE0440040D388 /* HouseListViewModel.swift */,
+				87C868912FCF5A880040D388 /* MazeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				87C868802FCDE0440040D388 /* House.swift in Sources */,
 				87C8688F2FCDE73A0040D388 /* Maze.swift in Sources */,
 				87C868862FCDE0440040D388 /* HousesListView.swift in Sources */,
+				87C868922FCF5A880040D388 /* MazeViewModel.swift in Sources */,
 				87C868832FCDE0440040D388 /* HouseListViewModel.swift in Sources */,
 				87C8687B2FCDE0440040D388 /* ICS3UCulminatingApp.swift in Sources */,
 			);
