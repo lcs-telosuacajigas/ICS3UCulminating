@@ -23,13 +23,19 @@ struct MazeView: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            // Title and Win Message
-            Text("Maze Runner")
-                .font(.largeTitle)
-                .bold()
+            // Title and Level Counter
+            VStack {
+                Text("Maze Runner")
+                    .font(.largeTitle)
+                    .bold()
+                
+                Text("Level \(viewModel.currentLevelIndex + 1) of \(viewModel.levels.count)")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+            }
             
-            if viewModel.hasWon {
-                Text("🎉 YOU WIN! 🎉")
+            if viewModel.hasWonGame {
+                Text("🏆 YOU BEAT THE GAME! 🏆")
                     .font(.title)
                     .foregroundColor(.green)
                     .bold()
@@ -76,28 +82,34 @@ struct MazeView: View {
             .border(Color.gray, width: 2)
             
             // 3. CONTROLS
-            // Simple buttons to move the character.
+            // These buttons move the character.
+            // I've added .keyboardShortcut so you can also use your arrow keys!
             VStack(spacing: 10) {
                 Button(action: { viewModel.move(.up) }) {
                     Image(systemName: "arrow.up.square.fill")
                         .font(.system(size: 50))
                 }
+                .keyboardShortcut(.upArrow, modifiers: []) // Link to Up Arrow key
                 
                 HStack(spacing: 40) {
                     Button(action: { viewModel.move(.left) }) {
                         Image(systemName: "arrow.left.square.fill")
                             .font(.system(size: 50))
                     }
+                    .keyboardShortcut(.leftArrow, modifiers: []) // Link to Left Arrow key
+                    
                     Button(action: { viewModel.move(.right) }) {
                         Image(systemName: "arrow.right.square.fill")
                             .font(.system(size: 50))
                     }
+                    .keyboardShortcut(.rightArrow, modifiers: []) // Link to Right Arrow key
                 }
                 
                 Button(action: { viewModel.move(.down) }) {
                     Image(systemName: "arrow.down.square.fill")
                         .font(.system(size: 50))
                 }
+                .keyboardShortcut(.downArrow, modifiers: []) // Link to Down Arrow key
             }
             
             // Reset Button

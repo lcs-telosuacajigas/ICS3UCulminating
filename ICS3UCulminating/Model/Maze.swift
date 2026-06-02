@@ -59,21 +59,186 @@ struct Maze {
 }
 
 // MARK: - Example Data
-// This is a pre-built maze we can use to test our game logic.
+// This is a list of levels we can use in our game.
 // 0 = Wall, 1 = Path, 2 = Start, 3 = Exit
-let exampleMaze = Maze(
-    grid: [
-        [.wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall],
-        [.wall,  .start, .path,  .path,  .wall,  .path,  .path,  .path,  .path,  .wall],
-        [.wall,  .wall,  .wall,  .path,  .wall,  .path,  .wall,  .wall,  .path,  .wall],
-        [.wall,  .path,  .path,  .path,  .path,  .path,  .path,  .wall,  .path,  .wall],
-        [.wall,  .path,  .wall,  .wall,  .wall,  .wall,  .path,  .wall,  .path,  .wall],
-        [.wall,  .path,  .path,  .path,  .path,  .wall,  .path,  .path,  .path,  .wall],
-        [.wall,  .wall,  .wall,  .wall,  .path,  .wall,  .wall,  .wall,  .path,  .wall],
-        [.wall,  .path,  .path,  .path,  .path,  .path,  .path,  .path,  .path,  .wall],
-        [.wall,  .path,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .exit,  .wall],
-        [.wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall]
-    ],
-    startPosition: Player(row: 1, column: 1),
-    exitPosition: Player(row: 8, column: 8)
-)
+let mazeLevels: [Maze] = [
+    // Level 1: Introduction
+    Maze(
+        grid: [
+            [.wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall],
+            [.wall,  .start, .path,  .path,  .wall,  .path,  .path,  .path,  .path,  .wall],
+            [.wall,  .wall,  .wall,  .path,  .wall,  .path,  .wall,  .wall,  .path,  .wall],
+            [.wall,  .path,  .path,  .path,  .path,  .path,  .path,  .wall,  .path,  .wall],
+            [.wall,  .path,  .wall,  .wall,  .wall,  .wall,  .path,  .wall,  .path,  .wall],
+            [.wall,  .path,  .path,  .path,  .path,  .wall,  .path,  .path,  .path,  .wall],
+            [.wall,  .wall,  .wall,  .wall,  .path,  .wall,  .wall,  .wall,  .path,  .wall],
+            [.wall,  .path,  .path,  .path,  .path,  .path,  .path,  .path,  .path,  .wall],
+            [.wall,  .path,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .exit,  .wall],
+            [.wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall,  .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 8, column: 8)
+    ),
+    
+    // Level 2: The S-Curve
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .start, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .exit, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 8, column: 8)
+    ),
+    
+    // Level 3: The Fork in the Road
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .start, .path, .path, .path, .wall, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .path, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .wall, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .exit, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 8, column: 8)
+    ),
+    
+    // Level 4: The Spiral
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .start, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .path, .wall, .path, .path, .path, .exit, .wall, .wall, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .path, .wall, .wall, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 5, column: 6)
+    ),
+    
+    // Level 5: The Grid Lock
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .start, .path, .wall, .path, .path, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .wall, .path, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .wall, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .path, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .wall, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .wall, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .exit, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 8, column: 8)
+    ),
+    
+    // Level 6: The Zig-Zag
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .start, .path, .wall, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .path, .wall, .path, .wall, .wall, .wall, .path, .wall],
+            [.wall, .wall, .path, .wall, .path, .wall, .exit, .wall, .path, .wall],
+            [.wall, .wall, .path, .wall, .path, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 3, column: 6)
+    ),
+    
+    // Level 7: The Box Room
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .start, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .path, .path, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .wall, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .wall, .exit, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 5, column: 5)
+    ),
+    
+    // Level 8: The Long Road
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .start, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .exit, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 8, column: 8)
+    ),
+    
+    // Level 9: The Cross
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .path, .path, .path, .path, .wall, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .path, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .path, .path, .path, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .start, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .path, .path, .path, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .wall, .path, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .wall, .path, .path, .exit, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 4, column: 4),
+        exitPosition: Player(row: 7, column: 8)
+    ),
+    
+    // Level 10: The Finale
+    Maze(
+        grid: [
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .start, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .path, .path, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .wall, .wall, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .wall, .exit, .path, .wall, .path, .wall],
+            [.wall, .path, .wall, .path, .wall, .wall, .wall, .wall, .path, .wall],
+            [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
+        ],
+        startPosition: Player(row: 1, column: 1),
+        exitPosition: Player(row: 5, column: 5)
+    )
+]

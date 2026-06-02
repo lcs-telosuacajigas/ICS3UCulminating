@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		87C8687B2FCDE0440040D388 /* ICS3UCulminatingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8687A2FCDE0440040D388 /* ICS3UCulminatingApp.swift */; };
 		87C8687D2FCDE0440040D388 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87C8687C2FCDE0440040D388 /* Assets.xcassets */; };
-		87C868802FCDE0440040D388 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8687F2FCDE0440040D388 /* House.swift */; };
-		87C868832FCDE0440040D388 /* HouseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868822FCDE0440040D388 /* HouseListViewModel.swift */; };
-		87C868862FCDE0440040D388 /* HousesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868852FCDE0440040D388 /* HousesListView.swift */; };
-		87C868882FCDE0440040D388 /* HouseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868872FCDE0440040D388 /* HouseItemView.swift */; };
 		87C8688A2FCDE0440040D388 /* RELEASE.md in Resources */ = {isa = PBXBuildFile; fileRef = 87C868892FCDE0440040D388 /* RELEASE.md */; };
 		87C8688F2FCDE73A0040D388 /* Maze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8688E2FCDE73A0040D388 /* Maze.swift */; };
 		87C868922FCF5A880040D388 /* MazeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868912FCF5A880040D388 /* MazeViewModel.swift */; };
@@ -23,10 +19,6 @@
 		87C868772FCDE0440040D388 /* ICS3UCulminating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICS3UCulminating.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87C8687A2FCDE0440040D388 /* ICS3UCulminatingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS3UCulminatingApp.swift; sourceTree = "<group>"; };
 		87C8687C2FCDE0440040D388 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		87C8687F2FCDE0440040D388 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
-		87C868822FCDE0440040D388 /* HouseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListViewModel.swift; sourceTree = "<group>"; };
-		87C868852FCDE0440040D388 /* HousesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesListView.swift; sourceTree = "<group>"; };
-		87C868872FCDE0440040D388 /* HouseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseItemView.swift; sourceTree = "<group>"; };
 		87C868892FCDE0440040D388 /* RELEASE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RELEASE.md; sourceTree = "<group>"; };
 		87C8688E2FCDE73A0040D388 /* Maze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Maze.swift; sourceTree = "<group>"; };
 		87C868902FCF56560040D388 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -78,7 +70,6 @@
 		87C8687E2FCDE0440040D388 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				87C8687F2FCDE0440040D388 /* House.swift */,
 				87C8688E2FCDE73A0040D388 /* Maze.swift */,
 			);
 			path = Model;
@@ -87,7 +78,6 @@
 		87C868812FCDE0440040D388 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				87C868822FCDE0440040D388 /* HouseListViewModel.swift */,
 				87C868912FCF5A880040D388 /* MazeViewModel.swift */,
 			);
 			path = ViewModels;
@@ -96,8 +86,6 @@
 		87C868842FCDE0440040D388 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				87C868852FCDE0440040D388 /* HousesListView.swift */,
-				87C868872FCDE0440040D388 /* HouseItemView.swift */,
 				87C868952FCF5D8B0040D388 /* MazeView.swift */,
 			);
 			path = Views;
@@ -176,13 +164,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87C868882FCDE0440040D388 /* HouseItemView.swift in Sources */,
 				87C868962FCF5D8B0040D388 /* MazeView.swift in Sources */,
-				87C868802FCDE0440040D388 /* House.swift in Sources */,
 				87C8688F2FCDE73A0040D388 /* Maze.swift in Sources */,
-				87C868862FCDE0440040D388 /* HousesListView.swift in Sources */,
 				87C868922FCF5A880040D388 /* MazeViewModel.swift in Sources */,
-				87C868832FCDE0440040D388 /* HouseListViewModel.swift in Sources */,
 				87C8687B2FCDE0440040D388 /* ICS3UCulminatingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,21 +22,32 @@ class MazeViewModel {
     
     // MARK: - Stored properties
     
+    // The list of all available levels.
+    var levels: [Maze]
+    
+    // The index of the level the player is currently on (0, 1, 2, etc.)
+    var currentLevelIndex: Int = 0
+    
     // The current layout of the maze.
-    var maze: Maze
+    var maze: Maze {
+        return levels[currentLevelIndex]
+    }
     
     // The current location of the player on the grid.
     var player: Player
     
-    // This property tracks whether the player has reached the exit.
-    var hasWon: Bool = false
+    // This property tracks whether the player has reached the exit of the LAST level.
+    var hasWonGame: Bool = false
+    
+    // This property tracks if the player just finished a level.
+    var hasFinishedLevel: Bool = false
     
     // MARK: - Initializer
-    // When we create the ViewModel, we start with the example maze
-    // and put the player at the maze's designated start position.
-    init(maze: Maze = exampleMaze) {
-        self.maze = maze
-        self.player = maze.startPosition
+    // When we create the ViewModel, we start with the first level
+    // and put the player at that maze's designated start position.
+    init(levels: [Maze] = mazeLevels) {
+        self.levels = levels
+        self.player = levels[0].startPosition
     }
     
     // MARK: - Functions
@@ -44,10 +55,10 @@ class MazeViewModel {
     /// Attempts to move the player in a given direction.
     /// - Parameter direction: The direction (up, down, left, or right) the player wants to go.
     func move(_ direction: Direction) {
-        // If the player has already won, we don't let them move anymore.
-        if hasWon { return }
+        // If the game is won, stop movement.
+        if hasWonGame { return }
         
-        // 1. Calculate where the player *wants* to go based on their current position.
+        // 1. Calculate where the player *wants* to go.
         var newRow = player.row
         var newColumn = player.column
         
@@ -62,32 +73,43 @@ class MazeViewModel {
             newColumn += 1
         }
         
-        // 2. SAFETY CHECK: Is the new position actually inside the maze grid?
-        // We check if the new row/column is within the boundaries (0 to rowCount/columnCount).
+        // 2. SAFETY CHECK: Is it inside the grid?
         let isWithinBounds = newRow >= 0 && newRow < maze.rowCount &&
                              newColumn >= 0 && newColumn < maze.columnCount
         
         if isWithinBounds {
-            // 3. COLLISION DETECTION: Is the tile at the new position a wall?
+            // 3. COLLISION DETECTION: Is it a wall?
             let targetTile = maze.grid[newRow][newColumn]
             
             if targetTile != .wall {
-                // If it's NOT a wall, update the player's position.
-                // Because this class is @Observable, the View will see this and move the icon.
                 player.row = newRow
                 player.column = newColumn
                 
-                // 4. WIN CHECK: Did the player just step on the exit?
+                // 4. WIN CHECK: Did the player reach the exit?
                 if player.row == maze.exitPosition.row && player.column == maze.exitPosition.column {
-                    hasWon = true
+                    advanceLevel()
                 }
             }
         }
     }
     
-    /// Resets the game to the starting state.
+    /// Logic to handle moving to the next level or winning the whole game.
+    private func advanceLevel() {
+        if currentLevelIndex < levels.count - 1 {
+            // Move to the next level index
+            currentLevelIndex += 1
+            // Put the player at the start of the NEW level
+            player = maze.startPosition
+        } else {
+            // If there are no more levels, the player has won the game!
+            hasWonGame = true
+        }
+    }
+    
+    /// Resets the game to the very first level.
     func resetGame() {
+        currentLevelIndex = 0
         player = maze.startPosition
-        hasWon = false
+        hasWonGame = false
     }
 }
