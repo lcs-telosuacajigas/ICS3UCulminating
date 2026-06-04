@@ -13,6 +13,9 @@
 		87C8688F2FCDE73A0040D388 /* Maze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8688E2FCDE73A0040D388 /* Maze.swift */; };
 		87C868922FCF5A880040D388 /* MazeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868912FCF5A880040D388 /* MazeViewModel.swift */; };
 		87C868962FCF5D8B0040D388 /* MazeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868952FCF5D8B0040D388 /* MazeView.swift */; };
+		87C868982FD1BA1E0040D388 /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868972FD1BA1E0040D388 /* TileType.swift */; };
+		87C8689A2FD1BA1E0040D388 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868992FD1BA1E0040D388 /* Player.swift */; };
+		87C8689C2FD1BA1E0040D388 /* MazeLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8689B2FD1BA1E0040D388 /* MazeLevels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		87C868902FCF56560040D388 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		87C868912FCF5A880040D388 /* MazeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeViewModel.swift; sourceTree = "<group>"; };
 		87C868952FCF5D8B0040D388 /* MazeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeView.swift; sourceTree = "<group>"; };
+		87C868972FD1BA1E0040D388 /* TileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileType.swift; sourceTree = "<group>"; };
+		87C868992FD1BA1E0040D388 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		87C8689B2FD1BA1E0040D388 /* MazeLevels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeLevels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,9 @@
 			isa = PBXGroup;
 			children = (
 				87C8688E2FCDE73A0040D388 /* Maze.swift */,
+				87C868972FD1BA1E0040D388 /* TileType.swift */,
+				87C868992FD1BA1E0040D388 /* Player.swift */,
+				87C8689B2FD1BA1E0040D388 /* MazeLevels.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -166,7 +175,10 @@
 			files = (
 				87C868962FCF5D8B0040D388 /* MazeView.swift in Sources */,
 				87C8688F2FCDE73A0040D388 /* Maze.swift in Sources */,
+				87C868982FD1BA1E0040D388 /* TileType.swift in Sources */,
 				87C868922FCF5A880040D388 /* MazeViewModel.swift in Sources */,
+				87C8689C2FD1BA1E0040D388 /* MazeLevels.swift in Sources */,
+				87C8689A2FD1BA1E0040D388 /* Player.swift in Sources */,
 				87C8687B2FCDE0440040D388 /* ICS3UCulminatingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
