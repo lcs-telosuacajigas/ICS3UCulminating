@@ -43,6 +43,7 @@
 				87C868792FCDE0440040D388 /* ICS3UCulminating */,
 				87C868782FCDE0440040D388 /* Products */,
 				87C868902FCF56560040D388 /* README.md */,
+				87C868892FCDE0440040D388 /* RELEASE.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,7 +60,6 @@
 			children = (
 				87C8687A2FCDE0440040D388 /* ICS3UCulminatingApp.swift */,
 				87C8687C2FCDE0440040D388 /* Assets.xcassets */,
-				87C868892FCDE0440040D388 /* RELEASE.md */,
 				87C8687E2FCDE0440040D388 /* Model */,
 				87C868812FCDE0440040D388 /* ViewModels */,
 				87C868842FCDE0440040D388 /* Views */,
