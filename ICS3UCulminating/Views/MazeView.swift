@@ -32,12 +32,31 @@ struct MazeView: View {
                 Text("Level \(viewModel.currentLevelIndex + 1) of \(viewModel.levels.count)")
                     .font(.headline)
                     .foregroundColor(.secondary)
+                
+                // Timer and Move Display
+                HStack(spacing: 30) {
+                    Text("Time: \(viewModel.timeRemaining)s")
+                        .foregroundColor(viewModel.timeRemaining < 5 ? .red : .primary)
+                    
+                    Text("Moves: \(viewModel.movesRemaining)")
+                        .foregroundColor(viewModel.movesRemaining < 3 ? .red : .primary)
+                }
+                .font(.title3)
+                .bold()
             }
             
             if viewModel.hasWonGame {
                 Text("🏆 YOU BEAT THE GAME! 🏆")
                     .font(.title)
                     .foregroundColor(.green)
+                    .bold()
+            }
+            
+            if viewModel.hasLostGame {
+                let lostReason = viewModel.timeRemaining <= 0 ? "OUT OF TIME" : "OUT OF MOVES"
+                Text("⌛️ GAME OVER: \(lostReason) ⌛️")
+                    .font(.title)
+                    .foregroundColor(.red)
                     .bold()
             }
             
