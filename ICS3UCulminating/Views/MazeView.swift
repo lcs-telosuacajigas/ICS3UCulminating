@@ -12,8 +12,8 @@ struct MazeView: View {
     // MARK: - Stored properties
     
     // This connects our View to the logic (ViewModel).
-    // @State ensures that the view refreshes when the ViewModel changes.
-    @State private var viewModel = MazeViewModel()
+    // It is passed in from the App level so it knows which mode was picked.
+    @State var viewModel: MazeViewModel
     
     // The size of each square in our maze grid.
     let tileSize: CGFloat = 30
@@ -156,5 +156,5 @@ struct MazeView: View {
 }
 
 #Preview {
-    MazeView()
+    MazeView(viewModel: MazeViewModel(mode: .marathon))
 }

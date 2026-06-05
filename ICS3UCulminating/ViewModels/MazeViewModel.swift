@@ -150,22 +150,105 @@ class MazeViewModel {
     
     /// Logic to handle moving to the next level or winning the whole game.
     private func advanceLevel() {
-        if currentLevelIndex < levels.count - 1 {
-            // Move to the next level index.
-            currentLevelIndex += 1
+        if gameMode == .endless {
+            // ENDLESS MODE LOGIC
+            // Generate a completely new random maze
+            let newMaze = generateRandomMaze()
             
-            // Set up the NEW level's starting state.
+            // In Endless Mode, we replace the single current level with this new one
+            // We'll keep our 'levels' array but just keep the current one at index 0 for simplicity
+            self.levels = [newMaze]
+            self.currentLevelIndex = 0
+            
+            // Set up the game state for the new random level
+            player = newMaze.startPosition
+            timeRemaining = 6 // Hardcoded 6 second rule for Endless
+            movesMade = 0
+            
+            startTimer()
+            
+        } else if currentLevelIndex < levels.count - 1 {
+            // MARATHON MODE LOGIC (Same as before)
+            currentLevelIndex += 1
             player = maze.startPosition
             timeRemaining = maze.timeLimit
             movesMade = 0
-            
-            // Restart the timer for the fresh level.
             startTimer()
         } else {
-            // If there are no more levels, the player wins the entire marathon!
             hasWonGame = true
             timer?.invalidate()
         }
+    }
+    
+    /// Generates a random, solvable 10x10 maze using a "Random Walk" algorithm.
+    func generateRandomMaze() -> Maze {
+        let size = 10
+        
+        // 1. Create a 10x10 grid filled entirely with WALLS
+        var grid = Array(repeating: Array(repeating: TileType.wall, count: size), count: size)
+        
+        // 2. Define Start and Exit (far apart)
+        let start = Player(row: 1, column: 1)
+        let exit = Player(row: 8, column: 8)
+        
+        grid[start.row][start.column] = .start
+        grid[exit.row][exit.column] = .exit
+        
+        // 3. THE "RANDOM WALK" (The Digger)
+        // This ensures there is a path from Start to Exit.
+        var currentRow = start.row
+        var currentColumn = start.column
+        
+        // Loop until we reach the exit
+        while currentRow != exit.row || currentColumn != exit.column {
+            // Pick a random direction (0: Up, 1: Down, 2: Left, 3: Right)
+            let direction = Int.random(in: 0...3)
+            
+            var nextRow = currentRow
+            var nextColumn = currentColumn
+            
+            switch direction {
+            case 0: nextRow -= 1
+            case 1: nextRow += 1
+            case 2: nextColumn -= 1
+            case 3: nextColumn += 1
+            default: break
+            }
+            
+            // Check if the move is within the "inner" maze (not touching the outer border)
+            if nextRow > 0 && nextRow < size - 1 && nextColumn > 0 && nextColumn < size - 1 {
+                currentRow = nextRow
+                currentColumn = nextColumn
+                
+                // If the spot we moved to is currently a wall, turn it into a path!
+                if grid[currentRow][currentColumn] == .wall {
+                    grid[currentRow][currentColumn] = .path
+                }
+            }
+        }
+        
+        // 4. ADD EXTRA PATHS (To make it look like a maze and not just one line)
+        for _ in 0...15 {
+            let r = Int.random(in: 1...8)
+            let c = Int.random(in: 1...8)
+            if grid[r][c] == .wall {
+                grid[r][c] = .path
+            }
+        }
+        
+        // 5. CALCULATE OPTIMAL MOVES
+        // For simplicity in Endless Mode, we'll give a generous move limit
+        // (Approx. Manhattan distance + some buffer)
+        let distance = abs(start.row - exit.row) + abs(start.column - exit.column)
+        let moveLimit = distance + 10 
+        
+        return Maze(
+            grid: grid,
+            startPosition: start,
+            exitPosition: exit,
+            timeLimit: 6,
+            optimalMoves: moveLimit
+        )
     }
     
     /// Resets the game to Level 1 and clears all win/loss states.

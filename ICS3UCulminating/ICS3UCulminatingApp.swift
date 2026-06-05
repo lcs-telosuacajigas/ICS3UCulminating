@@ -12,24 +12,38 @@ struct ICS3UCulminatingApp: App {
     
     // MARK: - Stored properties
     
-    // This state variable tracks whether the game has started or not.
-    // When it is 'false', we show the StartView.
-    // When it is 'true', we show the MazeView.
-    @State private var gameStarted = false
+    // We use an enum to track which screen the user is currently on.
+    enum AppScreen {
+        case start
+        case modeSelection
+        case game
+    }
+    
+    @State private var currentScreen: AppScreen = .start
+    
+    // This will hold the game mode the user eventually picks.
+    @State private var selectedMode: GameMode = .marathon
     
     // MARK: - Computed properties
     
     var body: some Scene {
         WindowGroup {
-            if gameStarted {
-                // If the game has started, show the main maze screen
-                MazeView()
-            } else {
-                // If the game hasn't started, show the aesthetic splash screen
+            switch currentScreen {
+                
+            case .start:
                 StartView {
-                    // This is the code that runs when the "Start Game" button is tapped
-                    gameStarted = true
+                    currentScreen = .modeSelection
                 }
+                
+            case .modeSelection:
+                ModeSelectionView { mode in
+                    selectedMode = mode
+                    currentScreen = .game
+                }
+                
+            case .game:
+                // We create the MazeViewModel with the mode the user picked!
+                MazeView(viewModel: MazeViewModel(mode: selectedMode))
             }
         }
     }
