@@ -23,8 +23,8 @@ struct MazeView: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            // Title and Level Counter
-            VStack {
+            // 1. HEADER SECTION: Title and Stats
+            VStack(spacing: 5) {
                 Text("Maze Runner")
                     .font(.largeTitle)
                     .bold()
@@ -33,7 +33,7 @@ struct MazeView: View {
                     .font(.headline)
                     .foregroundColor(.secondary)
                 
-                // Timer and Move Display
+                // Live Stats Display (Time and Moves)
                 HStack(spacing: 30) {
                     Text("Time: \(viewModel.timeRemaining)s")
                         .foregroundColor(viewModel.timeRemaining < 5 ? .red : .primary)
@@ -45,6 +45,8 @@ struct MazeView: View {
                 .bold()
             }
             
+            // 2. GAME STATUS MESSAGES
+            // These only appear when the game is won or lost.
             if viewModel.hasWonGame {
                 Text("🏆 YOU BEAT THE GAME! 🏆")
                     .font(.title)
@@ -53,6 +55,7 @@ struct MazeView: View {
             }
             
             if viewModel.hasLostGame {
+                // Determine the cause of loss for the message
                 let lostReason = viewModel.timeRemaining <= 0 ? "OUT OF TIME" : "OUT OF MOVES"
                 Text("⌛️ GAME OVER: \(lostReason) ⌛️")
                     .font(.title)
@@ -60,20 +63,16 @@ struct MazeView: View {
                     .bold()
             }
             
-            // 1. THE MAZE GRID
+            // 3. THE MAZE GRID
             // We use a ZStack so we can layer the player on top of the grid.
             ZStack(alignment: .topLeading) {
                 
-                // Draw the static maze (walls and paths)
+                // LAYER 1: The static maze (walls and paths)
                 VStack(spacing: 0) {
-                    // Loop through each row
                     ForEach(0..<viewModel.maze.rowCount, id: \.self) { rowIndex in
                         HStack(spacing: 0) {
-                            // Loop through each column in that row
                             ForEach(0..<viewModel.maze.columnCount, id: \.self) { columnIndex in
                                 let tile = viewModel.maze.grid[rowIndex][columnIndex]
-                                
-                                // Color the tile based on what it is
                                 rectangle(for: tile)
                                     .frame(width: tileSize, height: tileSize)
                             }
@@ -81,68 +80,67 @@ struct MazeView: View {
                     }
                 }
                 
-                // 2. THE PLAYER ICON
-                // We calculate the player's position based on their row and column.
+                // LAYER 2: The Player Icon
+                // This image "floats" over the grid and moves when row/column updates.
                 Image(systemName: "person.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(width: tileSize * 0.8, height: tileSize * 0.8)
                     .foregroundColor(.blue)
-                    // Offset moves the icon from the top-left (0,0) to the correct spot.
                     .offset(
                         x: CGFloat(viewModel.player.column) * tileSize + (tileSize * 0.1),
                         y: CGFloat(viewModel.player.row) * tileSize + (tileSize * 0.1)
                     )
-                    // Animation makes the movement look smooth
+                    // Animation makes the movement look like sliding instead of jumping.
                     .animation(.easeInOut(duration: 0.1), value: viewModel.player.row)
                     .animation(.easeInOut(duration: 0.1), value: viewModel.player.column)
             }
             .padding()
             .border(Color.gray, width: 2)
             
-            // 3. CONTROLS
-            // These buttons move the character.
-            // I've added .keyboardShortcut so you can also use your arrow keys!
+            // 4. CONTROLS SECTION
+            // Directional buttons for mouse users + Keyboard shortcuts for keyboard users.
             VStack(spacing: 10) {
                 Button(action: { viewModel.move(.up) }) {
                     Image(systemName: "arrow.up.square.fill")
                         .font(.system(size: 50))
                 }
-                .keyboardShortcut(.upArrow, modifiers: []) // Link to Up Arrow key
+                .keyboardShortcut(.upArrow, modifiers: [])
                 
                 HStack(spacing: 40) {
                     Button(action: { viewModel.move(.left) }) {
                         Image(systemName: "arrow.left.square.fill")
                             .font(.system(size: 50))
                     }
-                    .keyboardShortcut(.leftArrow, modifiers: []) // Link to Left Arrow key
+                    .keyboardShortcut(.leftArrow, modifiers: [])
                     
                     Button(action: { viewModel.move(.right) }) {
                         Image(systemName: "arrow.right.square.fill")
                             .font(.system(size: 50))
                     }
-                    .keyboardShortcut(.rightArrow, modifiers: []) // Link to Right Arrow key
+                    .keyboardShortcut(.rightArrow, modifiers: [])
                 }
                 
                 Button(action: { viewModel.move(.down) }) {
                     Image(systemName: "arrow.down.square.fill")
                         .font(.system(size: 50))
                 }
-                .keyboardShortcut(.downArrow, modifiers: []) // Link to Down Arrow key
+                .keyboardShortcut(.downArrow, modifiers: [])
             }
             
-            // Reset Button
+            // 5. FOOTER SECTION: Reset Button
             Button("Reset Game") {
                 viewModel.resetGame()
             }
             .padding(.top)
+            .buttonStyle(.borderedProminent)
         }
         .padding()
     }
     
     // MARK: - Helper Functions
     
-    /// Returns a colored rectangle based on the tile type.
+    /// Returns a specific color based on what the maze tile represents.
     func rectangle(for tile: TileType) -> some View {
         switch tile {
         case .wall:

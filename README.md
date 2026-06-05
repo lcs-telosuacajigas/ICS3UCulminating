@@ -1,48 +1,39 @@
 # Maze Runner Game
 
 ## Overview
-Maze Runner is a logic-based game where the player navigates a character through a 2D grid of tiles. The goal is to move from a **Starting Point** to an **Exit Point** while avoiding **Walls**.
+Maze Runner is a high-stakes logic puzzle where the player navigates a character through a series of 10 increasingly difficult mazes. The challenge is twofold: you must beat the clock and find the **Perfect Path**.
 
-## How it Works (MVVM Architecture)
+## Core Game Mechanics
 
-### 1. The Model (Data)
-The game's "DNA" is defined in `Maze.swift`.
-- **The Grid**: A 2D list (rows and columns) where each spot is either a wall, a path, a start, or an exit.
-- **The Player**: A simple marker that knows its current `row` and `column` coordinates.
+### 1. The Timer (Speed Challenge)
+Each level has a specific time limit. If the clock hits zero before you reach the exit, it's Game Over. The timer turns red when you are in "danger time" (less than 5 seconds remaining).
 
-### 2. The ViewModel (Logic)
-The "brain" that manages the game state (to be implemented in `MazeViewModel.swift`).
-- It holds the current position of the player.
-- It contains the rules for movement: "If the player wants to move Right, check if the tile to the right is a Wall. If it isn't, change the player's position."
-- It checks for the win condition: "Does the player's row and column match the exit's row and column?"
+### 2. Perfect Path (Move Limit Challenge)
+This is the ultimate test of your planning. Every level has an `optimalMoves` count. This number represents the **exact** minimum moves needed to reach the exit. 
+- If you take a wrong turn, you've used a move.
+- If you move back to correct yourself, you've used another move.
+- Because the limit is exact, any mistake means you will run out of moves before reaching the goal!
 
-### 3. The View (Interface)
-What the user sees (to be implemented in `MazeView.swift`).
-- It draws a square for every tile in the grid.
-- It places an icon (the player) at the current coordinates.
-- It provides buttons or gestures to send movement commands to the ViewModel.
+### 3. Progressive Difficulty
+The game features 10 levels with unique layouts, including spirals, zig-zags, and the "Diamond Chamber." As you progress, the paths get longer and the time limits get tighter.
+
+## Architecture (MVVM)
+
+- **Model**: `TileType.swift`, `Player.swift`, and `Maze.swift` define the data. `MazeLevels.swift` contains the level designs.
+- **ViewModel**: `MazeViewModel.swift` acts as the referee. It handles the timer "tick," tracks the move count, detects collisions with walls, and determines if you've won or lost.
+- **View**: `MazeView.swift` renders the grid and the player. it captures both on-screen button taps and physical **keyboard arrow key** presses.
 
 ---
 
-## Example Game Session (Step-by-Step)
+## Example "Perfect Path" Session
 
-Imagine a small 3x3 maze:
+Imagine a level with an `optimalMoves` of 3:
 ```
-[W] [W] [W]
-[S] [P] [W]
-[W] [E] [W]
+[S] [P] [P] [E]
 ```
-*(W = Wall, S = Start, P = Path, E = Exit)*
+1. **Move 1**: Move Right to `[P]`. (Moves Left: 2)
+2. **Move 2**: Move Right to `[P]`. (Moves Left: 1)
+3. **Move 3**: Move Right to `[E]`. (Moves Left: 0)
+4. **Result**: You are on the Exit and have 0 moves left. **You Win!**
 
-1.  **Start**: The game begins. The ViewModel sets the **Player Position** to Row 1, Column 0 (the `[S]` tile).
-2.  **Move Right**: The user taps the "Right" button.
-    - The ViewModel checks Row 1, Column 1. It is a **Path `[P]`**.
-    - The move is valid! The Player Position is updated to Row 1, Column 1.
-    - The View automatically refreshes to show the player icon in the middle.
-3.  **Invalid Move**: The user taps "Up".
-    - The ViewModel checks Row 0, Column 1. It is a **Wall `[W]`**.
-    - The move is rejected. The player stays at Row 1, Column 1.
-4.  **Move Down**: The user taps "Down".
-    - The ViewModel checks Row 2, Column 1. It is the **Exit `[E]`**.
-    - The move is valid! The Player Position is updated.
-5.  **Win**: The ViewModel detects the player is now on the Exit tile. It sets a `gameWon` property to `true`, which triggers a "You Win!" message on the screen.
+*If you had moved Left at step 2, you would have 1 move left but be 3 squares away from the exit, making the level impossible to finish.*
