@@ -27,7 +27,7 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 8, column: 8),
-        timeLimit: 30,
+        timeLimit: 10,
         optimalMoves: 14 // Placeholder: Verify and Update
     ),
     
@@ -47,8 +47,8 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 8, column: 8),
-        timeLimit: 25,
-        optimalMoves: 35 // Placeholder: Verify and Update
+        timeLimit: 10,
+        optimalMoves: 28 // Placeholder: Verify and Update
     ),
     
     // Level 3: The Fork in the Road
@@ -67,8 +67,8 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 8, column: 8),
-        timeLimit: 30,
-        optimalMoves: 16 // Placeholder: Verify and Update
+        timeLimit: 9,
+        optimalMoves: 20 // Placeholder: Verify and Update
     ),
     
     // Level 4: The Spiral
@@ -80,15 +80,15 @@ let mazeLevels: [Maze] = [
             [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
             [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
             [.wall, .path, .wall, .path, .path, .path, .exit, .wall, .wall, .wall],
-            [.wall, .path, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
+            [.wall, .path, .wall, .path, .wall, .wall, .wall, .wall, .wall, .wall],
             [.wall, .path, .path, .path, .path, .path, .path, .path, .path, .wall],
             [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall],
             [.wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall, .wall]
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 5, column: 6),
-        timeLimit: 35,
-        optimalMoves: 23 // Placeholder: Verify and Update
+        timeLimit: 9,
+        optimalMoves: 27 // Placeholder: Verify and Update
     ),
     
     // Level 5: The Grid Lock
@@ -107,8 +107,8 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 8, column: 8),
-        timeLimit: 25,
-        optimalMoves: 16 // Placeholder: Verify and Update
+        timeLimit: 8,
+        optimalMoves: 18 // Placeholder: Verify and Update
     ),
     
     // Level 6: The Zig-Zag
@@ -127,8 +127,8 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 3, column: 6),
-        timeLimit: 20,
-        optimalMoves: 16 // Placeholder: Verify and Update
+        timeLimit: 8,
+        optimalMoves: 11 // Placeholder: Verify and Update
     ),
     
     // Level 7: The Box Room
@@ -147,8 +147,8 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 5, column: 5),
-        timeLimit: 30,
-        optimalMoves: 10 // Placeholder: Verify and Update
+        timeLimit: 7,
+        optimalMoves: 18 // Placeholder: Verify and Update
     ),
     
     // Level 8: The Diamond Chamber
@@ -167,7 +167,7 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 8, column: 8),
-        timeLimit: 30,
+        timeLimit: 7,
         optimalMoves: 14 // Placeholder: Verify and Update
     ),
     
@@ -187,7 +187,7 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 4, column: 4),
         exitPosition: Player(row: 7, column: 8),
-        timeLimit: 20,
+        timeLimit: 6,
         optimalMoves: 7 // Placeholder: Verify and Update
     ),
     
@@ -207,7 +207,7 @@ let mazeLevels: [Maze] = [
         ],
         startPosition: Player(row: 1, column: 1),
         exitPosition: Player(row: 5, column: 5),
-        timeLimit: 15,
-        optimalMoves: 10 // Placeholder: Verify and Update
+        timeLimit: 5,
+        optimalMoves: 18 // Placeholder: Verify and Update
     )
 ]
