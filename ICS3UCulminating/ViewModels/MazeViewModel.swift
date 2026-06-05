@@ -22,6 +22,9 @@ class MazeViewModel {
     
     // MARK: - Stored properties
     
+    // The mode the user picked (Marathon or Endless).
+    var gameMode: GameMode
+    
     // The list of all available levels loaded from MazeLevels.swift.
     var levels: [Maze]
     
@@ -58,7 +61,8 @@ class MazeViewModel {
     
     // MARK: - Initializer
     // When we create the ViewModel, we set up Level 1 and start the clock.
-    init(levels: [Maze] = mazeLevels) {
+    init(mode: GameMode = .marathon, levels: [Maze] = mazeLevels) {
+        self.gameMode = mode
         self.levels = levels
         self.player = levels[0].startPosition
         self.timeRemaining = levels[0].timeLimit

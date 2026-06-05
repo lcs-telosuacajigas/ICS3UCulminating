@@ -17,6 +17,7 @@
 		87C8689A2FD1BA1E0040D388 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C868992FD1BA1E0040D388 /* Player.swift */; };
 		87C8689C2FD1BA1E0040D388 /* MazeLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8689B2FD1BA1E0040D388 /* MazeLevels.swift */; };
 		87C8689E2FD304280040D388 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8689D2FD304280040D388 /* StartView.swift */; };
+		87C868A02FD308640040D388 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8689F2FD308640040D388 /* GameMode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		87C868992FD1BA1E0040D388 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		87C8689B2FD1BA1E0040D388 /* MazeLevels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeLevels.swift; sourceTree = "<group>"; };
 		87C8689D2FD304280040D388 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		87C8689F2FD308640040D388 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				87C868972FD1BA1E0040D388 /* TileType.swift */,
 				87C868992FD1BA1E0040D388 /* Player.swift */,
 				87C8689B2FD1BA1E0040D388 /* MazeLevels.swift */,
+				87C8689F2FD308640040D388 /* GameMode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				87C868982FD1BA1E0040D388 /* TileType.swift in Sources */,
 				87C8689E2FD304280040D388 /* StartView.swift in Sources */,
 				87C868922FCF5A880040D388 /* MazeViewModel.swift in Sources */,
+				87C868A02FD308640040D388 /* GameMode.swift in Sources */,
 				87C8689C2FD1BA1E0040D388 /* MazeLevels.swift in Sources */,
 				87C8689A2FD1BA1E0040D388 /* Player.swift in Sources */,
 				87C8687B2FCDE0440040D388 /* ICS3UCulminatingApp.swift in Sources */,
