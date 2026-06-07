@@ -82,11 +82,11 @@
 		87C8687E2FCDE0440040D388 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				87C8688E2FCDE73A0040D388 /* Maze.swift */,
-				87C868972FD1BA1E0040D388 /* TileType.swift */,
-				87C868992FD1BA1E0040D388 /* Player.swift */,
-				87C8689B2FD1BA1E0040D388 /* MazeLevels.swift */,
 				87C8689F2FD308640040D388 /* GameMode.swift */,
+				87C8689B2FD1BA1E0040D388 /* MazeLevels.swift */,
+				87C8688E2FCDE73A0040D388 /* Maze.swift */,
+				87C868992FD1BA1E0040D388 /* Player.swift */,
+				87C868972FD1BA1E0040D388 /* TileType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,8 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				87C868952FCF5D8B0040D388 /* MazeView.swift */,
-				87C8689D2FD304280040D388 /* StartView.swift */,
 				87C868A12FD30A180040D388 /* ModeSelectionView.swift */,
+				87C8689D2FD304280040D388 /* StartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
