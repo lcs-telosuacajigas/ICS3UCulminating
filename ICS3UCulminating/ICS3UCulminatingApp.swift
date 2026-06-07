@@ -32,18 +32,36 @@ struct ICS3UCulminatingApp: App {
                 
             case .start:
                 StartView {
-                    currentScreen = .modeSelection
+                    withAnimation {
+                        currentScreen = .modeSelection
+                    }
                 }
                 
             case .modeSelection:
-                ModeSelectionView { mode in
-                    selectedMode = mode
-                    currentScreen = .game
-                }
+                ModeSelectionView(
+                    onModeSelected: { mode in
+                        withAnimation {
+                            selectedMode = mode
+                            currentScreen = .game
+                        }
+                    },
+                    onBack: {
+                        withAnimation {
+                            currentScreen = .start
+                        }
+                    }
+                )
                 
             case .game:
                 // We create the MazeViewModel with the mode the user picked!
-                MazeView(viewModel: MazeViewModel(mode: selectedMode))
+                MazeView(
+                    viewModel: MazeViewModel(mode: selectedMode),
+                    onBack: {
+                        withAnimation {
+                            currentScreen = .modeSelection
+                        }
+                    }
+                )
             }
         }
     }

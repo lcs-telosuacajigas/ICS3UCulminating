@@ -60,12 +60,27 @@ class MazeViewModel {
     private var timer: Timer?
     
     // MARK: - Initializer
-    // When we create the ViewModel, we set up Level 1 and start the clock.
+    // When we create the ViewModel, we set up the first level based on the mode.
     init(mode: GameMode = .marathon, levels: [Maze] = mazeLevels) {
         self.gameMode = mode
-        self.levels = levels
-        self.player = levels[0].startPosition
-        self.timeRemaining = levels[0].timeLimit
+        
+        if mode == .endless {
+            // For Endless Mode, we ignore the passed levels and generate our first random one.
+            let firstMaze = MazeViewModel.generateRandomMaze()
+            self.levels = [firstMaze]
+            self.currentLevelIndex = 0
+            self.player = firstMaze.startPosition
+            self.timeRemaining = firstMaze.timeLimit
+            self.movesMade = 0
+        } else {
+            // For Marathon Mode, we use the provided levels (defaulting to the 10 handcrafted ones).
+            self.levels = levels
+            self.currentLevelIndex = 0
+            self.player = levels[0].startPosition
+            self.timeRemaining = levels[0].timeLimit
+            self.movesMade = 0
+        }
+        
         startTimer()
     }
     
@@ -153,7 +168,7 @@ class MazeViewModel {
         if gameMode == .endless {
             // ENDLESS MODE LOGIC
             // Generate a completely new random maze
-            let newMaze = generateRandomMaze()
+            let newMaze = MazeViewModel.generateRandomMaze()
             
             // In Endless Mode, we replace the single current level with this new one
             // We'll keep our 'levels' array but just keep the current one at index 0 for simplicity
@@ -162,7 +177,7 @@ class MazeViewModel {
             
             // Set up the game state for the new random level
             player = newMaze.startPosition
-            timeRemaining = 6 // Hardcoded 6 second rule for Endless
+            timeRemaining = newMaze.timeLimit
             movesMade = 0
             
             startTimer()
@@ -181,7 +196,7 @@ class MazeViewModel {
     }
     
     /// Generates a random, solvable 10x10 maze using a "Random Walk" algorithm.
-    func generateRandomMaze() -> Maze {
+    static func generateRandomMaze() -> Maze {
         let size = 10
         
         // 1. Create a 10x10 grid filled entirely with WALLS
@@ -194,15 +209,32 @@ class MazeViewModel {
         grid[start.row][start.column] = .start
         grid[exit.row][exit.column] = .exit
         
-        // 3. THE "RANDOM WALK" (The Digger)
+        // 3. THE "DIRECTED RANDOM WALK"
         // This ensures there is a path from Start to Exit.
+        // We also track the number of unique path tiles created to estimate a fair move limit.
         var currentRow = start.row
         var currentColumn = start.column
+        var uniquePathTiles: Set<String> = ["1,1"] // Track unique tiles visited
         
         // Loop until we reach the exit
         while currentRow != exit.row || currentColumn != exit.column {
-            // Pick a random direction (0: Up, 1: Down, 2: Left, 3: Right)
-            let direction = Int.random(in: 0...3)
+            // Pick a direction, but BIAS it towards the exit (60% chance of moving towards exit)
+            var direction: Int
+            if Int.random(in: 1...100) <= 60 {
+                // Move towards exit
+                if currentRow < exit.row && Int.random(in: 0...1) == 0 {
+                    direction = 1 // Down
+                } else if currentColumn < exit.column {
+                    direction = 3 // Right
+                } else if currentRow > exit.row {
+                    direction = 0 // Up
+                } else {
+                    direction = 2 // Left
+                }
+            } else {
+                // Completely random
+                direction = Int.random(in: 0...3)
+            }
             
             var nextRow = currentRow
             var nextColumn = currentColumn
@@ -224,11 +256,12 @@ class MazeViewModel {
                 if grid[currentRow][currentColumn] == .wall {
                     grid[currentRow][currentColumn] = .path
                 }
+                uniquePathTiles.insert("\(currentRow),\(currentColumn)")
             }
         }
         
-        // 4. ADD EXTRA PATHS (To make it look like a maze and not just one line)
-        for _ in 0...15 {
+        // 4. ADD EXTRA PATHS (To make it more interesting)
+        for _ in 0...20 {
             let r = Int.random(in: 1...8)
             let c = Int.random(in: 1...8)
             if grid[r][c] == .wall {
@@ -236,17 +269,16 @@ class MazeViewModel {
             }
         }
         
-        // 5. CALCULATE OPTIMAL MOVES
-        // For simplicity in Endless Mode, we'll give a generous move limit
-        // (Approx. Manhattan distance + some buffer)
-        let distance = abs(start.row - exit.row) + abs(start.column - exit.column)
-        let moveLimit = distance + 10 
+        // 5. CALCULATE FAIR OPTIMAL MOVES
+        // We use the unique path tiles count as a baseline, then add a small buffer.
+        // This ensures the level is actually solvable!
+        let moveLimit = uniquePathTiles.count + 5
         
         return Maze(
             grid: grid,
             startPosition: start,
             exitPosition: exit,
-            timeLimit: 6,
+            timeLimit: 7, // Slightly more generous time limit
             optimalMoves: moveLimit
         )
     }

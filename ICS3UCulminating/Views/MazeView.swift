@@ -15,6 +15,9 @@ struct MazeView: View {
     // It is passed in from the App level so it knows which mode was picked.
     @State var viewModel: MazeViewModel
     
+    // This closure tells the parent view to go back.
+    var onBack: () -> Void
+    
     // The size of each square in our maze grid.
     let tileSize: CGFloat = 30
     
@@ -22,6 +25,19 @@ struct MazeView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            
+            // 0. TOP NAVIGATION BAR
+            HStack {
+                Button(action: onBack) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Exit Game")
+                    }
+                    .foregroundColor(.red)
+                }
+                Spacer()
+            }
+            .padding(.horizontal)
             
             // 1. HEADER SECTION: Title and Stats
             VStack(spacing: 5) {
@@ -156,5 +172,5 @@ struct MazeView: View {
 }
 
 #Preview {
-    MazeView(viewModel: MazeViewModel(mode: .marathon))
+    MazeView(viewModel: MazeViewModel(mode: .marathon), onBack: { })
 }

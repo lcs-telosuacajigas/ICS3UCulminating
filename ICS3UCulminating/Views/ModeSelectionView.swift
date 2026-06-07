@@ -14,6 +14,9 @@ struct ModeSelectionView: View {
     // This closure tells the parent view which mode was selected.
     var onModeSelected: (GameMode) -> Void
     
+    // This closure tells the parent view to go back.
+    var onBack: () -> Void
+    
     // MARK: - Computed properties
     
     var body: some View {
@@ -22,6 +25,19 @@ struct ModeSelectionView: View {
             Color.black.ignoresSafeArea()
             
             VStack(spacing: 40) {
+                
+                // BACK BUTTON
+                HStack {
+                    Button(action: onBack) {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                        .foregroundColor(.blue)
+                        .padding()
+                    }
+                    Spacer()
+                }
                 
                 Text("CHOOSE YOUR CHALLENGE")
                     .font(.title2)
@@ -93,5 +109,5 @@ struct ModeSelectionView: View {
 }
 
 #Preview {
-    ModeSelectionView(onModeSelected: { _ in })
+    ModeSelectionView(onModeSelected: { _ in }, onBack: { })
 }
