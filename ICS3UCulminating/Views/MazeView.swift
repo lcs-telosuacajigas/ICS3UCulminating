@@ -45,17 +45,25 @@ struct MazeView: View {
                     .font(.largeTitle)
                     .bold()
                 
-                Text("Level \(viewModel.currentLevelIndex + 1) of \(viewModel.levels.count)")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
+                if viewModel.gameMode == .marathon {
+                    Text("Level \(viewModel.currentLevelIndex + 1) of \(viewModel.levels.count)")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                } else {
+                    Text("Mazes Cleared: \(viewModel.mazesCleared)")
+                        .font(.headline)
+                        .foregroundColor(.orange)
+                }
                 
                 // Live Stats Display (Time and Moves)
                 HStack(spacing: 30) {
                     Text("Time: \(viewModel.timeRemaining)s")
-                        .foregroundColor(viewModel.timeRemaining < 5 ? .red : .primary)
+                        .foregroundColor(viewModel.timeRemaining < 3 ? .red : .primary)
                     
-                    Text("Moves: \(viewModel.movesRemaining)")
-                        .foregroundColor(viewModel.movesRemaining < 3 ? .red : .primary)
+                    if viewModel.gameMode == .marathon {
+                        Text("Moves: \(viewModel.movesRemaining)")
+                            .foregroundColor(viewModel.movesRemaining < 3 ? .red : .primary)
+                    }
                 }
                 .font(.title3)
                 .bold()
@@ -73,10 +81,13 @@ struct MazeView: View {
             if viewModel.hasLostGame {
                 // Determine the cause of loss for the message
                 let lostReason = viewModel.timeRemaining <= 0 ? "OUT OF TIME" : "OUT OF MOVES"
-                Text("⌛️ GAME OVER: \(lostReason) ⌛️")
+                let finalScore = viewModel.gameMode == .endless ? "\nScore: \(viewModel.mazesCleared)" : ""
+                
+                Text("⌛️ GAME OVER: \(lostReason)\(finalScore) ⌛️")
                     .font(.title)
                     .foregroundColor(.red)
                     .bold()
+                    .multilineTextAlignment(.center)
             }
             
             // 3. THE MAZE GRID

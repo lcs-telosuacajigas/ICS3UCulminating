@@ -51,6 +51,9 @@ class MazeViewModel {
     // How many moves the player has made in the current level.
     var movesMade: Int = 0
     
+    // Tracks how many mazes have been cleared in Endless Mode.
+    var mazesCleared: Int = 0
+    
     // A calculated property: subtracting moves made from the level's limit.
     var movesRemaining: Int {
         return maze.optimalMoves - movesMade
@@ -154,9 +157,12 @@ class MazeViewModel {
                 
                 // 4. WIN CHECK: Did the player reach the green exit tile?
                 if player.row == maze.exitPosition.row && player.column == maze.exitPosition.column {
+                    if gameMode == .endless {
+                        mazesCleared += 1
+                    }
                     advanceLevel()
-                } else if movesRemaining <= 0 {
-                    // 5. MOVE LIMIT CHECK: If out of moves and NOT on exit, player loses.
+                } else if gameMode == .marathon && movesRemaining <= 0 {
+                    // 5. MOVE LIMIT CHECK: Only in Marathon Mode.
                     hasLostGame = true
                 }
             }
@@ -278,16 +284,26 @@ class MazeViewModel {
             grid: grid,
             startPosition: start,
             exitPosition: exit,
-            timeLimit: 7, // Slightly more generous time limit
+            timeLimit: 5, // Locked at 5 seconds for Endless Mode
             optimalMoves: moveLimit
         )
     }
     
     /// Resets the game to Level 1 and clears all win/loss states.
     func resetGame() {
-        currentLevelIndex = 0
-        player = maze.startPosition
-        timeRemaining = maze.timeLimit
+        if gameMode == .endless {
+            mazesCleared = 0
+            let firstMaze = MazeViewModel.generateRandomMaze()
+            self.levels = [firstMaze]
+            self.currentLevelIndex = 0
+            self.player = firstMaze.startPosition
+            self.timeRemaining = firstMaze.timeLimit
+        } else {
+            currentLevelIndex = 0
+            player = maze.startPosition
+            timeRemaining = maze.timeLimit
+        }
+        
         movesMade = 0
         hasWonGame = false
         hasLostGame = false
